@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>1vs1 Coding</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/contest.css">
+  </head>
+  <body>
+    <h1 id="compiler">Show compiler here</h1>
+    
+    <div id="waitingModal" class="modal">
+      <div class="content">
+        <p>Waiting for admin to start...</p>
+      </div>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      socket.emit("joinContest", <%= id %>);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+    <script src="/javascripts/contest.js"></script>
+  </body>
+</html>

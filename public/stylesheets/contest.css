@@ -1,0 +1,22 @@
+.modal{
+  position: fixed;
+  z-index:1;
+  left: 0;
+  top:0;
+  height: 100%;
+  width:100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.content{
+  font-size: 30px;
+  text-align: center;
+  background-color:#f4f4f4;
+  margin: 15% auto;
+  padding: 50px;
+  width:70%;
+  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
+  animation-name:modalopen;
+  animation-duration:1s;
+}
