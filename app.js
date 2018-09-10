@@ -6,6 +6,8 @@ var io = require('socket.io')(http);
 var Question = require("./models/questionsModel");
 var seedDB = require("./seed");
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var {c, cpp, python, java} = require('compile-run');
 
 //========================
 // MongoDB setup
@@ -22,6 +24,7 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: false }))
 
 //======================
 //     ROUTES
@@ -46,6 +49,33 @@ app.get("/admin", (req,res) => {
     });
 });
 
+app.post("/compile", (req,res) => {
+    if(req.body.lang == "C") {
+        const sourcecode = req.body.source;
+        let resultPromise = c.runSource(sourcecode, {stdin: req.body.input});
+        resultPromise.then(result => {
+            res.send(result);
+        }).catch(err => {
+            console.log(err);
+        });
+    } else if (req.body.lang == "PYTHON"){
+        const sourcecode = req.body.source;
+        let resultPromise = python.runSource(sourcecode, {stdin: req.body.input});
+        resultPromise.then(result => {
+            res.send(result);
+        }).catch(err => {
+            console.log(err);
+        });
+    } else if (req.body.lang == "CPP") {
+        const sourcecode = req.body.source;
+        let resultPromise = cpp.runSource(sourcecode, {stdin: req.body.input});
+        resultPromise.then(result => {
+            res.send(result);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+});
 //========================
 // SOCKET IO STUFF
 //========================
@@ -65,6 +95,10 @@ io.on('connection', function(socket){
                 io.to(data.roomID).emit("start", question);
             }
         });
+    });
+    
+    socket.on("gameOver", (roomID) => {
+        socket.broadcast.to(roomID).emit("lost");
     });
 });
 
