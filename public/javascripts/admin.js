@@ -1,33 +1,42 @@
 var socket = io();
 
-$("#1").click(() => {
-    socket.emit("startContest", 1); 
-});
+for(let i=1;i<=8;i++) {
+    $("#" + i).click(() => {
+        let questionID = $("#" + i + "_select").val();
+        let roomID = i;
+        socket.emit("startContest", {questionID:questionID,roomID:roomID});
+    });
+}
 
-$("#2").click(() => {
-    socket.emit("startContest", 2); 
-});
+// $("#1").click(() => {
+//     let questionID = $("#1_select").val();
+//     socket.emit("startContest", 1); 
+// });
 
-$("#3").click(() => {
-    socket.emit("startContest", 3); 
-});
+// $("#2").click(() => {
+//     socket.emit("startContest", 2); 
+// });
 
-$("#4").click(() => {
-    socket.emit("startContest", 4); 
-});
+// $("#3").click(() => {
+//     socket.emit("startContest", 3); 
+// });
 
-$("#5").click(() => {
-    socket.emit("startContest", 5); 
-});
+// $("#4").click(() => {
+//     socket.emit("startContest", 4); 
+// });
 
-$("#6").click(() => {
-    socket.emit("startContest", 6); 
-});
+// $("#5").click(() => {
+//     socket.emit("startContest", 5); 
+// });
 
-$("#7").click(() => {
-    socket.emit("startContest", 7); 
-});
+// $("#6").click(() => {
+//     socket.emit("startContest", 6); 
+// });
 
-$("#8").click(() => {
-    socket.emit("startContest", 8); 
-});
+// $("#7").click(() => {
+//     socket.emit("startContest", 7); 
+// });
+
+// $("#8").click(() => {
+//     socket.emit("startContest", 8); 
+// });

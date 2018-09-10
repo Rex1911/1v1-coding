@@ -3,8 +3,19 @@ var path = require('path');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var Question = require("./models/questionsModel");
+var seedDB = require("./seed");
+var mongoose = require('mongoose');
 
-// view engine setup
+//========================
+// MongoDB setup
+//========================
+mongoose.connect("mongodb://localhost/questionsDB");
+seedDB();
+
+//=======================
+// View engine setup
+//=======================
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -25,7 +36,14 @@ app.get("/contest/:id", (req,res) => {
 });
 
 app.get("/admin", (req,res) => {
-    res.render("admin"); 
+    Question.find({}, (err,questionsList) => {
+        if(err) {
+            console.log(err);
+        } else {
+            //Basically sends all the questions in the DB to front end to populate the dropdown
+            res.render("admin", {questions:questionsList});
+        }
+    });
 });
 
 //========================
@@ -38,8 +56,15 @@ io.on('connection', function(socket){
         console.log("Someone joined room" + id);
     });
     
-    socket.on("startContest", (id) => {
-        io.to(id).emit("start"); 
+    socket.on("startContest", (data) => {
+        //Search the DB for the question using the _id provided by the frontend
+        Question.find({_id:data.questionID}, (err,question)=> {
+            if(err) {
+                console.log(err);
+            } else {
+                io.to(data.roomID).emit("start", question);
+            }
+        });
     });
 });
 
