@@ -8,7 +8,20 @@
 
       <div class="row">
           <div class="col-md-12 col-lg-12">
-              <h1>Question here</h1>
+              <h2>Question: </h2>
+              <h3><%=question.question%></h3>
+              <br>
+              <h2>Input Format: </h2>
+              <h3><%=question.inFormat%></h3>
+              <br>
+              <h2>Output Format: </h2>
+              <h3><%=question.outFormat%></h3>
+              <br>
+              <h2>Test Case Inputs: </h2>
+              <h3><%=question.exInput%></h3>
+              <br>
+              <h2>Test Case Outputs:</h2>
+              <h3><%=question.exOutput%></h3>
           </div>
       </div>
 
@@ -31,8 +44,7 @@
                     </select>
                 </label>
             </div>
-            <div id="editor">// Write your code here !!
-            </div>
+            <div id="editor">// Write your code here !!</div>
         </div>
         <div class="col-md-3 col-lg-3" id="secondCol">
             <div id="compilerDiv">

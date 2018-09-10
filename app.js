@@ -4,6 +4,7 @@ var app = express();
 var http = require('http').Server(app);
 var mongoose = require('mongoose');
 var Question = require('./models/questions');
+var seedDB = require('./seeds.js')
 
 // database setup
 mongoose.connect("mongodb://localhost/1v1coding", { useNewUrlParser: true });
@@ -15,6 +16,7 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+seedDB();
 
 //======================
 //     ROUTES
@@ -25,7 +27,13 @@ app.get("/", (req,res) => {
 });
 
 app.get("/contest/:id", (req,res) => {
-    res.render("contest", {id:req.params.id});
+    Question.findOne({'qnumber': req.params.id}, function(err, question){
+        if(err){
+            console.log("Error in loading question");
+        } else {
+            res.render("contest", {id:req.params.id, question:question});
+        }
+    })
 });
 
 app.get("/admin", (req,res) => {

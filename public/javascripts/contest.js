@@ -52,7 +52,7 @@ runBtnTest.addEventListener("click", function(){
             'async': 0,
             'source': text,
             'lang': compilerLang,
-            'input': 20,
+            'input': '50 40',
             'time_limit': 5,
             'memory_limit': 262144,
         }
