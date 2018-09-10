@@ -2,22 +2,71 @@
   <head>
     <title>1vs1 Coding</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/contest.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
-    <h1 id="compiler">Show compiler here</h1>
-    
-    <div id="waitingModal" class="modal">
+
+      <div class="row">
+          <div class="col-md-12 col-lg-12">
+              <h1>Question here</h1>
+          </div>
+      </div>
+
+    <div id="waitingModal" class="myModal">
       <div class="content">
         <p>Waiting for admin to start...</p>
       </div>
     </div>
-    
+
+    <div class="row" id="myRow">
+        <div class="col-md-9 col-lg-9" id="firstCol">
+            <div class="dropdown">
+                <label>Programming Language
+                    <select name="ProLan" id="langDropDown">
+                        <option value="c_cpp">c</option>
+                        <option value="c_cpp">c++</option>
+                        <option value="java">java</option>
+                        <option value="python">python</option>
+                        <option value="javascript">javascript</option>
+                    </select>
+                </label>
+            </div>
+            <div id="editor">// Write your code here !!
+            </div>
+        </div>
+        <div class="col-md-3 col-lg-3" id="secondCol">
+            <div id="compilerDiv">
+                <div id="compilerStatus">
+                    <span id="compilerMessage"></span>
+                </div>
+                <button id="compileBtn" class="btn btn-danger"> Compile </button>
+            </div>
+            <div id="runDiv">
+                <div id="runStatus">
+
+                </div>
+                <button id="runBtnTest" class="btn btn-danger disabled"> Run Test Case </button>
+                <button id="runBtnPvt" class="btn btn-danger disabled"> Run Private Case </button>
+            </div>
+        </div>
+    </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
       socket.emit("joinContest", <%= id %>);
     </script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+    <script src="/compiler/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/c_cpp");
+        editor.setOption('fontSize', 20);
+    </script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
     <script src="/javascripts/contest.js"></script>
   </body>
 </html>
