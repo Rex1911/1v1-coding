@@ -60,7 +60,13 @@ app.post("/compile", (req,res) => {
         });
     } else if (req.body.lang == "PYTHON"){
         const sourcecode = req.body.source;
-        let resultPromise = python.runSource(sourcecode, {stdin: req.body.input});
+        let customIp = req.body.input.split(" ");
+        let string = "";
+        customIp.forEach(input => {
+            string += input + "\n"; 
+        });
+        console.log(string);
+        let resultPromise = python.runSource(sourcecode, {stdin: string});
         resultPromise.then(result => {
             res.send(result);
         }).catch(err => {

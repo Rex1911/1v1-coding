@@ -49,15 +49,20 @@ $("#run_btn").click(() => {
             }
         })
         .done((data) => {
+            if(compilerLang == "PYTHON") {
+                data.stdout = data.stdout.slice(0, -1);
+                console.log("Python output " + data.stdout);
+            }
+            
             if(data.stderr != "") {
                 $("#submit_message").html("");
                 $("#run_message").html(`${data.stderr} <br>`);
             } else if(data.stdout == questionData.testCasesAnswer[i]) {
                 $("#run_message").append(`Test case ${i+1} passed<br>`);
             } else {
-                 $("#run_message").append(`Private case ${i+1} failed<br>`);
+                 $("#run_message").append(`Test case ${i+1} failed<br>`);
             }
-            console.log(data);
+            // console.log(data);
         });
     }
 });
@@ -82,6 +87,11 @@ $("#submit_btn").click(() => {
             }
         })
         .done((data) => {
+            if(compilerLang == "PYTHON") {
+                data.stdout = data.stdout.slice(0, -1);
+                console.log("Python output " + data.stdout);
+            }
+            
             if(data.stderr != "") {
                 $("#submit_message").html("");
                 $("#submit_message").html(`${data.stderr} <br>`);
