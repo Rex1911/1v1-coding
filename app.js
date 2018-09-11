@@ -59,13 +59,13 @@ app.post("/compile", (req,res) => {
             console.log(err);
         });
     } else if (req.body.lang == "PYTHON"){
+        // Python handles custom inputs differently. Each input must be a individual, not a entire string. Below code seperates the inputs into individual tokens.
         const sourcecode = req.body.source;
         let customIp = req.body.input.split(" ");
         let string = "";
         customIp.forEach(input => {
             string += input + "\n"; 
         });
-        console.log(string);
         let resultPromise = python.runSource(sourcecode, {stdin: string});
         resultPromise.then(result => {
             res.send(result);
@@ -89,7 +89,6 @@ app.post("/compile", (req,res) => {
 io.on('connection', function(socket){
     socket.on("joinContest", (id) => {
         socket.join(id);
-        console.log("Someone joined room" + id);
     });
     
     socket.on("startContest", (data) => {

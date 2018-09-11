@@ -1,6 +1,4 @@
-const compileUrl = "https://api.hackerearth.com/v3/code/compile/";
 const runUrl = "https://coding-one-v-one-rex1911.c9users.io/compile";
-const client_secret = "b76e2532fdf6fc07e6fb1cdd6e1331f9774244bb";
 const roomID = $("#roomID").text();
 
 let compilerLang = "C";
@@ -49,9 +47,9 @@ $("#run_btn").click(() => {
             }
         })
         .done((data) => {
+            // The output for python is not formatted correctly, this hack fixes it. It removes the space that python appends at the end.
             if(compilerLang == "PYTHON") {
                 data.stdout = data.stdout.slice(0, -1);
-                console.log("Python output " + data.stdout);
             }
             
             if(data.stderr != "") {
@@ -62,7 +60,7 @@ $("#run_btn").click(() => {
             } else {
                  $("#run_message").append(`Test case ${i+1} failed<br>`);
             }
-            // console.log(data);
+            console.log(data);
         });
     }
 });
@@ -87,9 +85,9 @@ $("#submit_btn").click(() => {
             }
         })
         .done((data) => {
+            // The output for python is not formatted correctly, this hack fixes it. It removes the space that python appends at the end.
             if(compilerLang == "PYTHON") {
                 data.stdout = data.stdout.slice(0, -1);
-                console.log("Python output " + data.stdout);
             }
             
             if(data.stderr != "") {
