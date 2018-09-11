@@ -9,6 +9,24 @@ let data = [
         noOfPrivateCases: 5,
         privateCases: ["6 13","83 3", "9 2", "18 0", "99 1"],
         privateCasesAnswer: ["19","86","11","18","100"]
+    },
+    {
+        question: "Subtract the two given numbers",
+        noOfTestCases: 2,
+        testCases: ["10 20", "200 100"],
+        testCasesAnswer: ["-10", "100"],
+        noOfPrivateCases: 5,
+        privateCases: ["6 13","83 3", "9 2", "18 0", "99 1"],
+        privateCasesAnswer: ["-7","80","7","18","98"]
+    },
+    {
+        question: "Multiplay the two given numbers",
+        noOfTestCases: 2,
+        testCases: ["10 20", "200 100"],
+        testCasesAnswer: ["200", "20000"],
+        noOfPrivateCases: 5,
+        privateCases: ["6 13","83 3", "9 2", "18 0", "99 1"],
+        privateCasesAnswer: ["78","249","18","0","99"]
     }
 ];
 
