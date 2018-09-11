@@ -6,6 +6,10 @@ const roomID = $("#roomID").text();
 let compilerLang = "C";
 let questionData = {};
 
+$("#gameOverModal").hide();
+$("#waitingModal").show();
+$("#roomID").hide();
+
 //When we recieve the start event, hide the modal as well as catch the question data.
 socket.on("start", (data) => {
     $("#waitingModal").hide();
@@ -14,7 +18,8 @@ socket.on("start", (data) => {
 });
 
 socket.on("lost", ()=> {
-    console.log("You lost!"); 
+    $("#gameOverContent").text("Loser");
+    $("#gameOverModal").show();
 });
 
 
@@ -86,6 +91,8 @@ $("#submit_btn").click(() => {
                 if(noRightAnswers == questionData.noOfPrivateCases) {
                     console.log("Winner");
                     socket.emit("gameOver",roomID);
+                    $("#gameOverContent").text("Winner");
+                    $("#gameOverModal").show();
                 }
             } else {
                 $("#submit_message").append(`Private case ${i+1} failed<br>`);
