@@ -80,6 +80,15 @@ app.post("/compile", (req,res) => {
         }).catch(err => {
             console.log(err);
         });
+    } else if(req.body.lang == "JAVA") {
+        const sourcecode = req.body.source;
+        let resultPromise = java.runSource(sourcecode, {stdin: req.body.input});
+        resultPromise.then(result => {
+            console.log(result);
+            res.send(result);
+        }).catch(err => {
+            console.log(err);
+        });
     }
 });
 //========================

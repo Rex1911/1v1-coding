@@ -38,7 +38,6 @@ $("#run_btn").click(() => {
             method: "POST",
             url: runUrl,
             data: {
-                client_secret: client_secret,
                 async: 0,
                 source: source,
                 lang: compilerLang,
@@ -47,13 +46,13 @@ $("#run_btn").click(() => {
             }
         })
         .done((data) => {
-            // The output for python is not formatted correctly, this hack fixes it. It removes the space that python appends at the end.
-            if(compilerLang == "PYTHON") {
+            // The output for python and java is not formatted correctly, this hack fixes it. It removes the space that appends at the end.
+            if(compilerLang == "PYTHON" || compilerLang == "JAVA") {
                 data.stdout = data.stdout.slice(0, -1);
             }
             
             if(data.stderr != "") {
-                $("#submit_message").html("");
+                $("#run_message").html("");
                 $("#run_message").html(`${data.stderr} <br>`);
             } else if(data.stdout == questionData.testCasesAnswer[i]) {
                 $("#run_message").append(`Test case ${i+1} passed<br>`);
@@ -76,7 +75,6 @@ $("#submit_btn").click(() => {
             method: "POST",
             url: runUrl,
             data: {
-                client_secret: client_secret,
                 async: 0,
                 source: source,
                 lang: compilerLang,
@@ -85,8 +83,8 @@ $("#submit_btn").click(() => {
             }
         })
         .done((data) => {
-            // The output for python is not formatted correctly, this hack fixes it. It removes the space that python appends at the end.
-            if(compilerLang == "PYTHON") {
+            // The output for python and java is not formatted correctly, this hack fixes it. It removes the space that appends at the end.
+            if(compilerLang == "PYTHON" || compilerLang == "JAVA") {
                 data.stdout = data.stdout.slice(0, -1);
             }
             
