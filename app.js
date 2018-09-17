@@ -1,3 +1,4 @@
+require("exit-on-epipe");
 var express = require('express');
 var path = require('path');
 var app = express();
@@ -52,7 +53,7 @@ app.get("/admin", (req,res) => {
 app.post("/compile", (req,res) => {
     if(req.body.lang == "C") {
         const sourcecode = req.body.source;
-        let resultPromise = c.runSource(sourcecode, {stdin: req.body.input});
+        let resultPromise = c.runSource(sourcecode/*, {stdin: req.body.input}*/);
         resultPromise.then(result => {
             res.send(result);
         }).catch(err => {
@@ -61,12 +62,12 @@ app.post("/compile", (req,res) => {
     } else if (req.body.lang == "PYTHON"){
         // Python handles custom inputs differently. Each input must be a individual, not a entire string. Below code seperates the inputs into individual tokens.
         const sourcecode = req.body.source;
-        let customIp = req.body.input.split(" ");
-        let string = "";
-        customIp.forEach(input => {
-            string += input + "\n"; 
-        });
-        let resultPromise = python.runSource(sourcecode, {stdin: string});
+        // let customIp = req.body.input.split(" ");
+        // let string = "";
+        // customIp.forEach(input => {
+        //     string += input + "\n"; 
+        // });
+        let resultPromise = python.runSource(sourcecode, {stdin: req.body.input});
         resultPromise.then(result => {
             res.send(result);
         }).catch(err => {
@@ -113,6 +114,10 @@ io.on('connection', function(socket){
     
     socket.on("gameOver", (roomID) => {
         socket.broadcast.to(roomID).emit("lost");
+    });
+    
+    socket.on('error', function(e){	
+    	console.log(e);
     });
 });
 

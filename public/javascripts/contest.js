@@ -1,7 +1,7 @@
-const runUrl = "https://coding-one-v-one-rex1911.c9users.io/compile";
+const runUrl = "https://api.judge0.com/submissions/?base64_encoded=false&wait=true";
 const roomID = $("#roomID").text();
 
-let compilerLang = "C";
+let compilerLang = 4;
 let questionData = {};
 
 $("#gameOverModal").hide();
@@ -25,7 +25,17 @@ socket.on("lost", ()=> {
 function changeAceLang() {
     let langCode = $("#langSelector").val();
     editor.session.setMode("ace/mode/" + langCode);
-    compilerLang = $("#langSelector option:selected").text().toUpperCase();
+    if($("#langSelector option:selected").text() == "C") {
+        compilerLang = 4;
+    } else if ($("#langSelector option:selected").text() == "CPP") {
+        compilerLang = 10;
+    } else if ($("#langSelector option:selected").text() == "CSHARP") {
+        compilerLang = 16;
+    } else if ($("#langSelector option:selected").text() == "Java") {
+        compilerLang = 26;
+    } else if ($("#langSelector option:selected").text() == "Python") {
+        compilerLang = 34;
+    }
 }
 
 $("#run_btn").click(() => {
@@ -34,32 +44,35 @@ $("#run_btn").click(() => {
     
     //Looping through each test case
     for(let i=0;i<questionData.noOfTestCases;i++) {
+        let data = {
+            source_code: source,
+            language_id: compilerLang,
+            stdin: questionData.testCases[i]
+        };
         $.ajax({
-            method: "POST",
+            type: "POST",
             url: runUrl,
-            data: {
-                async: 0,
-                source: source,
-                lang: compilerLang,
-                input: questionData.testCases[i],
-                time_limit: 10
-            }
+            async: true,
+            contentType: "application/json",
+            data: JSON.stringify(data)
         })
-        .done((data) => {
+        .done((data, textStatus, jqXHR) => {
             // The output for python and java is not formatted correctly, this hack fixes it. It removes the space that appends at the end.
-            if(compilerLang == "PYTHON" || compilerLang == "JAVA") {
-                data.stdout = data.stdout.slice(0, -1);
-            }
+            // if(data.status.id == 3) {
+            //     if(compilerLang == 34 || compilerLang == 26) {
+            //         data.stdout = data.stdout.slice(0, -1);
+            //     }
+            // }
             
-            if(data.stderr != "") {
+            if(data.status.id != 3) {
                 $("#run_message").html("");
-                $("#run_message").html(`${data.stderr} <br>`);
-            } else if(data.stdout == questionData.testCasesAnswer[i]) {
+                $("#run_message").text(`${data.compile_output}`);
+            } else if(data.status.id == 3 && data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"") == questionData.testCasesAnswer[i]) {
                 $("#run_message").append(`Test case ${i+1} passed<br>`);
             } else {
                  $("#run_message").append(`Test case ${i+1} failed<br>`);
             }
-            console.log(data);
+            console.log(data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,""));
         });
     }
 });
@@ -71,27 +84,29 @@ $("#submit_btn").click(() => {
     
     //Looping through each test case
     for(let i=0;i<questionData.noOfPrivateCases;i++) {
+        let data = {
+            source_code: source,
+            language_id: compilerLang,
+            stdin: questionData.privateCases[i]
+        };
+        
         $.ajax({
-            method: "POST",
+            type: "POST",
             url: runUrl,
-            data: {
-                async: 0,
-                source: source,
-                lang: compilerLang,
-                input: questionData.privateCases[i],
-                time_limit: 10
-            }
+            async: true,
+            contentType: "application/json",
+            data: JSON.stringify(data)
         })
-        .done((data) => {
+        .done((data, textStatus, jqXHR) => {
             // The output for python and java is not formatted correctly, this hack fixes it. It removes the space that appends at the end.
-            if(compilerLang == "PYTHON" || compilerLang == "JAVA") {
-                data.stdout = data.stdout.slice(0, -1);
-            }
+            // if(compilerLang == 34 || compilerLang == 26) {
+            //     data.stdout = data.stdout.slice(0, -1);
+            // }
             
-            if(data.stderr != "") {
+            if(data.status.id != 3) {
                 $("#submit_message").html("");
-                $("#submit_message").html(`${data.stderr} <br>`);
-            } else if(data.stdout == questionData.privateCasesAnswer[i]) {
+                $("#submit_message").html(`${data.compile_output} <br>`);
+            } else if(data.status.id == 3 && data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"") == questionData.privateCasesAnswer[i]) {
                 $("#submit_message").append(`Private case ${i+1} passed<br>`);
                 noRightAnswers++;
                 if(noRightAnswers == questionData.noOfPrivateCases) {
