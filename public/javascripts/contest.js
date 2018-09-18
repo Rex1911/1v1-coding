@@ -64,22 +64,35 @@ $("#run_btn").click(() => {
             //     }
             // }
             
-            if(data.status.id != 3) {
+            
+            /* ID 3 = Successful Compilation
+               ID 6 = Compilation Error
+               ID 7-12 = Runtime Error */
+            if(data.status.id == 3) {
+                if(data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"") == questionData.testCasesAnswer[i]) {
+                   $("#run_message").append(`Test case ${i+1} <span class="green-text">passed</span><br>`); 
+                } else {
+                    $("#run_message").append(`Test case ${i+1} <span class="red-text">failed</span><br>`);
+                }
+            } else if(data.status.id == 6) {
                 $("#run_message").html("");
-                $("#run_message").text(`${data.compile_output}`);
-            } else if(data.status.id == 3 && data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"") == questionData.testCasesAnswer[i]) {
-                $("#run_message").append(`Test case ${i+1} passed<br>`);
-            } else {
-                 $("#run_message").append(`Test case ${i+1} failed<br>`);
+                let error_string_newline = data.compile_output.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+                let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
+                $("#run_message").html(`${error_string}`);
+            } else if (data.status.id >=7 && data.status.id <=12) {
+                $("#run_message").html("");
+                let error_string_newline = data.stderr.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+                let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
+                $("#run_message").html(`${error_string}`);
             }
-            console.log(data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,""));
+            console.log(data);
         });
     }
 });
 
 $("#submit_btn").click(() => {
     let noRightAnswers = 0;
-    $("#submit_message").html("");
+    $("#run_message").html("");
     let source = editor.getValue();
     
     //Looping through each test case
@@ -103,20 +116,34 @@ $("#submit_btn").click(() => {
             //     data.stdout = data.stdout.slice(0, -1);
             // }
             
-            if(data.status.id != 3) {
-                $("#submit_message").html("");
-                $("#submit_message").html(`${data.compile_output} <br>`);
-            } else if(data.status.id == 3 && data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"") == questionData.privateCasesAnswer[i]) {
-                $("#submit_message").append(`Private case ${i+1} passed<br>`);
-                noRightAnswers++;
-                if(noRightAnswers == questionData.noOfPrivateCases) {
-                    console.log("Winner");
-                    socket.emit("gameOver",roomID);
-                    $("#gameOverContent").text("Winner");
-                    $("#gameOverModal").show();
+            
+            
+            /* ID 3 = Successful Compilation
+               ID 6 = Compilation Error
+               ID 7-12 = Runtime Error */
+            if(data.status.id == 3) {
+                if(data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"") == questionData.privateCasesAnswer[i]) {
+                    $("#run_message").append(`Private case ${i+1} <span class="green-text">passed</span><br>`);
+                    noRightAnswers++;
+                    if(noRightAnswers == questionData.noOfPrivateCases) {
+                        console.log("Winner");
+                        socket.emit("gameOver",roomID);
+                        $("#gameOverContent").text("Winner");
+                        $("#gameOverModal").show();
+                    }
+                } else {
+                    $("#run_message").append(`Private case ${i+1} <span class="green-text">failed</span><br>`);
                 }
-            } else {
-                $("#submit_message").append(`Private case ${i+1} failed<br>`);
+            } else if(data.status.id == 6) {
+                $("#run_message").html("");
+                let error_string_newline = data.compile_output.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+                let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
+                $("#run_message").html(`${error_string}`);
+            } else if (data.status.id >=7 && data.status.id <=12) {
+                $("#run_message").html("");
+                let error_string_newline = data.stderr.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+                let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
+                $("#run_message").html(`${error_string}`);
             }
             console.log(data);
         });

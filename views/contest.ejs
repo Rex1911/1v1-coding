@@ -9,30 +9,43 @@
     <h1>Question:</h1>
     <p id="question"></p>
     <hr>
-    <select id="langSelector" onchange="changeAceLang()">
-      <option value="c_cpp">C</option>
-      <option value="c_cpp">CPP</option>
-      <option value="csharp">CSHARP</option>
-      <option value="java">Java</option>
-      <option value="python">Python</option>
-    </select>
-    <div id="editor"></div>
-    
-    <button id="run_btn" class="btn btn-primary">Run</button>
-    <button id="submit_btn" class="btn btn-success">Submit</button><br>
-    
-    <h3>Run Message:</h3>
-    <p id="run_message"></p>
-    
-    <h3>Submit Message</h3>
-    <p id="submit_message"></p>
-    
+    <div class="main-editor">
+      <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Editor</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <select class="form-control" id="langSelector" onchange="changeAceLang()">
+                <option value="c_cpp">C</option>
+                <option value="c_cpp">CPP</option>
+                <option value="csharp">CSHARP</option>
+                <option value="java">Java</option>
+                <option value="python">Python</option>
+              </select>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <button id="run_btn" class="btn btn-primary">Run</button>
+              <button id="submit_btn" class="btn btn-success">Submit</button><br>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div id="editor"></div>
+      <p class="result">Result:</p>
+      <div class="scroll-result">
+        <p id="run_message"></p>
+      </div>
+    </div>
     <div id="waitingModal" class="modal">
       <div class="content">
         <p>Waiting for admin to start...</p>
       </div>
     </div>
-    
     <div id="gameOverModal" class="modal">
       <div class="content">
         <p id="gameOverContent">Waiting for admin to start...</p>

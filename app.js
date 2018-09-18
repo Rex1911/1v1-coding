@@ -50,48 +50,6 @@ app.get("/admin", (req,res) => {
     });
 });
 
-app.post("/compile", (req,res) => {
-    if(req.body.lang == "C") {
-        const sourcecode = req.body.source;
-        let resultPromise = c.runSource(sourcecode/*, {stdin: req.body.input}*/);
-        resultPromise.then(result => {
-            res.send(result);
-        }).catch(err => {
-            console.log(err);
-        });
-    } else if (req.body.lang == "PYTHON"){
-        // Python handles custom inputs differently. Each input must be a individual, not a entire string. Below code seperates the inputs into individual tokens.
-        const sourcecode = req.body.source;
-        // let customIp = req.body.input.split(" ");
-        // let string = "";
-        // customIp.forEach(input => {
-        //     string += input + "\n"; 
-        // });
-        let resultPromise = python.runSource(sourcecode, {stdin: req.body.input});
-        resultPromise.then(result => {
-            res.send(result);
-        }).catch(err => {
-            console.log(err);
-        });
-    } else if (req.body.lang == "CPP") {
-        const sourcecode = req.body.source;
-        let resultPromise = cpp.runSource(sourcecode, {stdin: req.body.input});
-        resultPromise.then(result => {
-            res.send(result);
-        }).catch(err => {
-            console.log(err);
-        });
-    } else if(req.body.lang == "JAVA") {
-        const sourcecode = req.body.source;
-        let resultPromise = java.runSource(sourcecode, {stdin: req.body.input});
-        resultPromise.then(result => {
-            console.log(result);
-            res.send(result);
-        }).catch(err => {
-            console.log(err);
-        });
-    }
-});
 //========================
 // SOCKET IO STUFF
 //========================
