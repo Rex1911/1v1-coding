@@ -1,6 +1,8 @@
 const runUrl = "https://api.judge0.com/submissions/?base64_encoded=false&wait=true";
 const roomID = $("#roomID").text();
 
+let time = 0;
+let timeId;
 let compilerLang = 4;
 let questionData = {};
 
@@ -8,11 +10,17 @@ $("#gameOverModal").hide();
 $("#waitingModal").show();
 $("#roomID").hide();
 
-//When we recieve the start event, hide the modal as well as catch the question data.
+//When we recieve the start event, hide the modal as well as catch the question data and start the timer.
 socket.on("start", (data) => {
     $("#waitingModal").hide();
     questionData = data[0];
     $("#question").text(questionData.question);
+    timeId = setInterval(() => {
+        time++;
+        let min = Math.floor(time/60);
+        let sec = time%60;
+        $(".timer").text(`${min}m ${sec}s`)
+    },1000);
 });
 
 socket.on("lost", ()=> {
@@ -39,6 +47,20 @@ function changeAceLang() {
 }
 
 $("#run_btn").click(() => {
+    let timer = 5;
+    $("#run_btn").prop("disabled",true);
+    $("#run_btn").text(timer);
+    let id = setInterval(()=>{
+        if(timer == 1) {
+            $("#run_btn").text("Run");
+            $("#run_btn").prop("disabled",false);
+            clearInterval(id);
+        } else {
+            timer--;
+            $("#run_btn").text(timer);
+        }
+    },1000);
+    
     $("#run_message").html("");
     let source = editor.getValue();
     
@@ -91,6 +113,20 @@ $("#run_btn").click(() => {
 });
 
 $("#submit_btn").click(() => {
+    let timer = 5;
+    $("#submit_btn").prop("disabled",true);
+    $("#submit_btn").text(timer);
+    let id = setInterval(()=>{
+        if(timer == 1) {
+            $("#submit_btn").text("Submit");
+            $("#submit_btn").prop("disabled",false);
+            clearInterval(id);
+        } else {
+            timer--;
+            $("#submit_btn").text(timer);
+        }
+    },1000);
+    
     let noRightAnswers = 0;
     $("#run_message").html("");
     let source = editor.getValue();
@@ -132,7 +168,7 @@ $("#submit_btn").click(() => {
                         $("#gameOverModal").show();
                     }
                 } else {
-                    $("#run_message").append(`Private case ${i+1} <span class="green-text">failed</span><br>`);
+                    $("#run_message").append(`Private case ${i+1} <span class="red-text">failed</span><br>`);
                 }
             } else if(data.status.id == 6) {
                 $("#run_message").html("");
@@ -149,4 +185,3 @@ $("#submit_btn").click(() => {
         });
     }
 });
-

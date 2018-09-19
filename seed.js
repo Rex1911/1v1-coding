@@ -27,6 +27,12 @@ let data = [
         noOfPrivateCases: 5,
         privateCases: ["6 13","83 3", "9 2", "18 0", "99 1"],
         privateCasesAnswer: ["78","249","18","0","99"]
+    },
+    {
+        question:"CodeChef",
+        noOfTestCases: 2,
+        testCases: ["3\n1 2 3","3\n1 2 1"],
+        testCasesAnswer: ["4","3"],
     }
 ];
 
