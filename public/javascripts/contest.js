@@ -198,3 +198,8 @@ $("#output_button").click(()=> {
         $(".result").text("Result");
     }
 });
+
+//Code to disable rightclick
+$(document).bind("contextmenu",function(e){
+   return false;
+ });
