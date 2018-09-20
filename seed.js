@@ -4,11 +4,11 @@ let data = [
     {
         question: "Add the two given numbers",
         noOfTestCases: 2,
-        testCases: ["10\n20", "100\n200"],
+        testCases: ["2\n10 20\n100 200"],
         testCasesAnswer: ["30", "300"],
-        noOfPrivateCases: 15,
-        privateCases: ["6\n13","83\n3", "9\n2", "18\n0", "99\n1","1\n1","4\n1","8\n2","100\n8","54\n2","12\n1","9253\n1","23\n1","98\n3","43\n2"],
-        privateCasesAnswer: ["19","86","11","18","100","2","5","10","108","56","13","9254","24","101","45"]
+        noOfPrivateCases: 5,
+        privateCases: ["5\n1 2\n3 4\n5 5\n100 100\n799 1"],
+        privateCasesAnswer: ["3","7","10","200","800"]
     },
     {
         question: "Subtract the two given numbers",

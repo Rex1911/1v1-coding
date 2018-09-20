@@ -5,10 +5,12 @@ let time = 0;
 let timeId;
 let compilerLang = 4;
 let questionData = {};
+let resultVisible = true;
 
 $("#gameOverModal").hide();
 $("#waitingModal").show();
 $("#roomID").hide();
+$("#output").hide();
 
 //When we recieve the start event, hide the modal as well as catch the question data and start the timer.
 socket.on("start", (data) => {
@@ -62,54 +64,52 @@ $("#run_btn").click(() => {
     },1000);
     
     $("#run_message").html("");
+    $("#output").html("");
     let source = editor.getValue();
     
-    //Looping through each test case
-    for(let i=0;i<questionData.noOfTestCases;i++) {
-        let data = {
-            source_code: source,
-            language_id: compilerLang,
-            stdin: questionData.testCases[i]
-        };
-        $.ajax({
-            type: "POST",
-            url: runUrl,
-            async: true,
-            contentType: "application/json",
-            data: JSON.stringify(data)
-        })
-        .done((data, textStatus, jqXHR) => {
-            // The output for python and java is not formatted correctly, this hack fixes it. It removes the space that appends at the end.
-            // if(data.status.id == 3) {
-            //     if(compilerLang == 34 || compilerLang == 26) {
-            //         data.stdout = data.stdout.slice(0, -1);
-            //     }
-            // }
-            
-            
-            /* ID 3 = Successful Compilation
-               ID 6 = Compilation Error
-               ID 7-12 = Runtime Error */
-            if(data.status.id == 3) {
-                if(data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"") == questionData.testCasesAnswer[i]) {
-                   $("#run_message").append(`Test case ${i+1} <span class="green-text">passed</span><br>`); 
+    let data = {
+        source_code: source,
+        language_id: compilerLang,
+        stdin: questionData.testCases[0]
+    };
+    
+    $.ajax({
+        type: "POST",
+        url: runUrl,
+        async: true,
+        contentType: "application/json",
+        data: JSON.stringify(data)
+    })
+    .done((data, textStatus, jqXHR) => {
+        
+        /* ID 3 = Successful Compilation
+            ID 6 = Compilation Error
+            ID 7-12 = Runtime Error */
+        if(data.status.id == 3) {
+            let output_string_newline = data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+            let output_string = output_string_newline.replace(/\s/gm,"&nbsp");
+            $("#output").html(`${output_string}`);
+            let answers = data.stdout.split("\n");
+            for(let i=0;i<questionData.noOfTestCases;i++) {
+                if(answers[i] == questionData.testCasesAnswer[i]) {
+                    $("#run_message").append(`Test case ${i+1} <span class="green-text">passed</span><br>`);
                 } else {
                     $("#run_message").append(`Test case ${i+1} <span class="red-text">failed</span><br>`);
                 }
-            } else if(data.status.id == 6) {
-                $("#run_message").html("");
-                let error_string_newline = data.compile_output.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
-                let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
-                $("#run_message").html(`${error_string}`);
-            } else if (data.status.id >=7 && data.status.id <=12) {
-                $("#run_message").html("");
-                let error_string_newline = data.stderr.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
-                let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
-                $("#run_message").html(`${error_string}`);
             }
-            console.log(data);
-        });
-    }
+        } else if(data.status.id == 6) {
+            $("#run_message").html("");
+            let error_string_newline = data.compile_output.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+            let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
+            $("#run_message").html(`${error_string}`);
+        } else if (data.status.id >=7 && data.status.id <=12) {
+            $("#run_message").html("");
+            let error_string_newline = data.stderr.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+            let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
+            $("#run_message").html(`${error_string}`);
+        }
+        console.log(data);
+    });
 });
 
 $("#submit_btn").click(() => {
@@ -129,36 +129,32 @@ $("#submit_btn").click(() => {
     
     let noRightAnswers = 0;
     $("#run_message").html("");
+    $("#output").html("");
     let source = editor.getValue();
     
-    //Looping through each test case
-    for(let i=0;i<questionData.noOfPrivateCases;i++) {
-        let data = {
-            source_code: source,
-            language_id: compilerLang,
-            stdin: questionData.privateCases[i]
-        };
+    let data = {
+        source_code: source,
+        language_id: compilerLang,
+        stdin: questionData.privateCases[0]
+    };
+    
+    $.ajax({
+        type: "POST",
+        url: runUrl,
+        async: true,
+        contentType: "application/json",
+        data: JSON.stringify(data)
+    })
+    .done((data, textStatus, jqXHR) => {
         
-        $.ajax({
-            type: "POST",
-            url: runUrl,
-            async: true,
-            contentType: "application/json",
-            data: JSON.stringify(data)
-        })
-        .done((data, textStatus, jqXHR) => {
-            // The output for python and java is not formatted correctly, this hack fixes it. It removes the space that appends at the end.
-            // if(compilerLang == 34 || compilerLang == 26) {
-            //     data.stdout = data.stdout.slice(0, -1);
-            // }
-            
-            
-            
-            /* ID 3 = Successful Compilation
-               ID 6 = Compilation Error
-               ID 7-12 = Runtime Error */
-            if(data.status.id == 3) {
-                if(data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"") == questionData.privateCasesAnswer[i]) {
+        /* ID 3 = Successful Compilation
+            ID 6 = Compilation Error
+            ID 7-12 = Runtime Error */
+        if(data.status.id == 3) {
+            $("#output").append("No output presented for private cases");
+            let answers = data.stdout.split("\n");
+            for(let i=0;i<questionData.noOfPrivateCases;i++) {
+                if(answers[i] == questionData.privateCasesAnswer[i]) {
                     $("#run_message").append(`Private case ${i+1} <span class="green-text">passed</span><br>`);
                     noRightAnswers++;
                     if(noRightAnswers == questionData.noOfPrivateCases) {
@@ -170,18 +166,32 @@ $("#submit_btn").click(() => {
                 } else {
                     $("#run_message").append(`Private case ${i+1} <span class="red-text">failed</span><br>`);
                 }
-            } else if(data.status.id == 6) {
-                $("#run_message").html("");
-                let error_string_newline = data.compile_output.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
-                let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
-                $("#run_message").html(`${error_string}`);
-            } else if (data.status.id >=7 && data.status.id <=12) {
-                $("#run_message").html("");
-                let error_string_newline = data.stderr.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
-                let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
-                $("#run_message").html(`${error_string}`);
             }
-            console.log(data);
-        });
+        } else if(data.status.id == 6) {
+            $("#run_message").html("");
+            let error_string_newline = data.compile_output.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+            let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
+            $("#run_message").html(`${error_string}`);
+        } else if (data.status.id >=7 && data.status.id <=12) {
+            $("#run_message").html("");
+            let error_string_newline = data.stderr.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+            let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
+            $("#run_message").html(`${error_string}`);
+        }
+        console.log(data);
+    });
+});
+
+$("#output_button").click(()=> {
+    $("#output").toggle();
+    $("#run_message").toggle();
+    if(resultVisible == true) {
+        resultVisible = false;
+        $("#output_button").text("View Result");
+        $(".result").text("Output");
+    } else if(resultVisible == false) {
+        resultVisible = true;
+        $("#output_button").text("View Output");
+        $(".result").text("Result");
     }
 });

@@ -71,6 +71,10 @@
   padding-left: 30px;
 }
 
+#output {
+  padding-left: 30px;
+}
+
 .green-text {
   color: #15a81a;
   font-weight:bold;

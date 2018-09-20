@@ -32,6 +32,9 @@
               <span class="nav-link timer">0m 0s</span>
             </li>
             <li class="nav-item">
+              <button id="output_button" type="button" class="btn btn-info">View Output</button>
+            </li>
+            <li class="nav-item">
               <button id="run_btn" class="btn btn-primary">Run</button>
               <button id="submit_btn" class="btn btn-success">Submit</button><br>
             </li>
@@ -41,6 +44,7 @@
       <div id="editor"></div>
       <p class="result">Result:</p>
       <div class="scroll-result">
+        <p id="output"></p>  
         <p id="run_message"></p>
       </div>
     </div>
@@ -56,7 +60,7 @@
     </div>
     
     <!---------------SCRIPTS BELOW----------------------->
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="/javascripts/jquery-min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
