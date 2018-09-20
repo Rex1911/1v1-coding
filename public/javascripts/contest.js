@@ -21,7 +21,7 @@ socket.on("start", (data) => {
         time++;
         let min = Math.floor(time/60);
         let sec = time%60;
-        $(".timer").text(`${min}m ${sec}s`)
+        $(".timer").text(`${min}m ${sec}s`);
     },1000);
 });
 
@@ -159,8 +159,11 @@ $("#submit_btn").click(() => {
                     noRightAnswers++;
                     if(noRightAnswers == questionData.noOfPrivateCases) {
                         console.log("Winner");
+                        clearInterval(timeId);
                         socket.emit("gameOver",roomID);
-                        $("#gameOverContent").text("Winner");
+                        let min = Math.floor(time/60);
+                        let sec = time%60;
+                        $("#gameOverContent").html(`Winner<br>Time: ${min}m ${sec}s`);
                         $("#gameOverModal").show();
                     }
                 } else {
