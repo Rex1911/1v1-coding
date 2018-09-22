@@ -171,7 +171,7 @@ $("#submit_btn").click(() => {
                         socket.emit("gameOver",roomID);
                         let min = Math.floor(time/60);
                         let sec = time%60;
-                        $("#gameOverContent").html(`All priavte cases passed<br>Time: ${min}m ${sec}s`);
+                        $("#gameOverContent").html(`All private cases passed<br>Time: ${min}m ${sec}s`);
                         $("#gameOverModal").show();
                     }
                 } else {
