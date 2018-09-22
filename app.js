@@ -65,7 +65,7 @@ io.on('connection', function(socket){
             if(err) {
                 console.log(err);
             } else {
-                io.to(data.roomID).emit("start", question);
+                io.to(data.roomID).emit("start", {question:question,totalTime:data.totalTime});
             }
         });
     });

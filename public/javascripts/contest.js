@@ -2,31 +2,39 @@ const runUrl = "https://api.judge0.com/submissions/?base64_encoded=false&wait=tr
 const roomID = $("#roomID").text();
 
 let time = 0;
-let timeId;
-let compilerLang = 4;
+let timeId; //Variable to hold the value of the id returned by setInterval()
+let totalTimeId; //Variable to hold the value of the id returned by setTimeout() 
+let compilerLang = 4; 
 let questionData = {};
 let resultVisible = true;
+let maxRight = 0; //Tracks the number of correct answers
 
-$("#gameOverModal").hide();
 $("#waitingModal").show();
+$("#gameOverModal").hide();
 $("#roomID").hide();
 $("#output").hide();
 
 //When we recieve the start event, hide the modal as well as catch the question data and start the timer.
 socket.on("start", (data) => {
     $("#waitingModal").hide();
-    questionData = data[0];
+    questionData = data.question[0];
     $("#question").text(questionData.question);
+    console.log(data.totalTime);
     timeId = setInterval(() => {
         time++;
         let min = Math.floor(time/60);
         let sec = time%60;
         $(".timer").text(`${min}m ${sec}s`);
     },1000);
+    totalTimeId = setTimeout(()=>{
+        $("#gameOverContent").html("Time's Up<br>Right Answers: " + maxRight);
+        $("#gameOverModal").show();
+        clearInterval(timeId)
+    },data.totalTime*60000);
 });
 
 socket.on("lost", ()=> {
-    $("#gameOverContent").text("Loser");
+    $("#gameOverContent").text("Times up");
     $("#gameOverModal").show();
 });
 
@@ -158,17 +166,21 @@ $("#submit_btn").click(() => {
                     $("#run_message").append(`Private case ${i+1} <span class="green-text">passed</span><br>`);
                     noRightAnswers++;
                     if(noRightAnswers == questionData.noOfPrivateCases) {
-                        console.log("Winner");
                         clearInterval(timeId);
+                        clearTimeout(totalTimeId);
                         socket.emit("gameOver",roomID);
                         let min = Math.floor(time/60);
                         let sec = time%60;
-                        $("#gameOverContent").html(`Winner<br>Time: ${min}m ${sec}s`);
+                        $("#gameOverContent").html(`All priavte cases passed<br>Time: ${min}m ${sec}s`);
                         $("#gameOverModal").show();
                     }
                 } else {
                     $("#run_message").append(`Private case ${i+1} <span class="red-text">failed</span><br>`);
                 }
+            }
+            // Updates maxRight if the current submissions has more right answers
+            if(noRightAnswers>maxRight){
+                maxRight = noRightAnswers;
             }
         } else if(data.status.id == 6) {
             $("#run_message").html("");

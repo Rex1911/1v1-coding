@@ -3,8 +3,9 @@ var socket = io();
 for(let i=1;i<=8;i++) {
     $("#" + i).click(() => {
         let questionID = $("#" + i + "_select").val();
+        let totalTime = $("#" + i + "_time").val();
         let roomID = i;
-        socket.emit("startContest", {questionID:questionID,roomID:roomID});
+        socket.emit("startContest", {questionID:questionID,totalTime:totalTime,roomID:roomID});
     });
 }
 
