@@ -18,7 +18,7 @@ $("#output").hide();
 socket.on("start", (data) => {
     $("#waitingModal").hide();
     questionData = data.question[0];
-    $("#question").text(questionData.question);
+    $("#question").html(questionData.question);
     console.log(data.totalTime);
     timeId = setInterval(() => {
         time++;
