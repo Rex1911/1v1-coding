@@ -1,9 +1,7 @@
-require("exit-on-epipe");
 var express = require('express');
 var path = require('path');
 var app = express();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
 var Question = require("./models/questionsModel");
 var seedDB = require("./seed");
 var mongoose = require('mongoose');
@@ -13,7 +11,7 @@ var {c, cpp, python, java} = require('compile-run');
 //========================
 // MongoDB setup
 //========================
-mongoose.connect("mongodb://localhost/questionsDB");
+mongoose.connect("mongodb://localhost/questionsDB", { useNewUrlParser: true });
 seedDB();
 
 //=======================
@@ -50,15 +48,26 @@ app.get("/admin", (req,res) => {
     });
 });
 
+//=======================
+// STARTING THE SERVER
+//=======================
+
+var server = app.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+
 //========================
 // SOCKET IO STUFF
 //========================
+
+var socket = require("socket.io")
+var io = socket().listen(server);
 
 io.on('connection', function(socket){
     socket.on("joinContest", (id) => {
         socket.join(id);
     });
-    
+
     socket.on("startContest", (data) => {
         //Search the DB for the question using the _id provided by the frontend
         Question.find({_id:data.questionID}, (err,question)=> {
@@ -69,20 +78,12 @@ io.on('connection', function(socket){
             }
         });
     });
-    
+
     socket.on("gameOver", (roomID) => {
         socket.broadcast.to(roomID).emit("lost");
     });
-    
-    socket.on('error', function(e){	
+
+    socket.on('error', function(e){
     	console.log(e);
     });
-});
-
-//=======================
-// STARTING THE SERVER
-//=======================
-
-http.listen(process.env.PORT, function(){
-  console.log('listening on *:3000');
 });

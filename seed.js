@@ -20,7 +20,7 @@ let data = [
         testCasesAnswer: ["1","0"],
         noOfPrivateCases: 7,
         privateCases: ["7\n13 523\n239 347 26 17 3 492 27 48 1 9 3 14 5\n7 365\n2848 26 16 3 1 4 99\n8 99\n99 4 523 1 3 3488 4 2\n4 34\n1883 22 1 421\n3 384\n383 272 991\n5 36\n73 261 38 28 2\n3 382\n261 340 77"],
-        privateCasesAnswer: ["1", "1", "1", "1", "1", "1", "2"]    
+        privateCasesAnswer: ["1", "1", "1", "1", "1", "1", "2"]
     },
     {
         question: "<section id=\"SECTION_1\">\n\t<div id=\"DIV_2\">\n\t\t<p id=\"P_3\">\n\t\t\tFarmer Feb has three fields with potatoes planted in them. He harvested <b id=\"B_4\">x<\/b> potatoes from the first field, <b id=\"B_5\">y<\/b> potatoes from the second field and is yet to harvest potatoes from the third field. Feb is very superstitious and believes that if the sum of potatoes he harvests from the three fields is a prime number (<a href=\"http:\/\/en.wikipedia.org\/wiki\/Prime_number\" id=\"A_6\">http:\/\/en.wikipedia.org\/wiki\/Prime_number<\/a>), he\'ll make a huge profit. Please help him by calculating for him the minimum number of potatoes that if harvested from the third field will make the sum of potatoes prime. At least one potato should be harvested from the third field.\n\t\t<\/p>\n\t\t<p id=\"P_7\">\n\t\t<\/p>\n\t\t<h3 id=\"H3_8\">\n\t\t\tInput\n\t\t<\/h3>\n\t\t<p id=\"P_9\">\n\t\t\tThe first line of the input contains an integer <b id=\"B_10\">T<\/b> denoting the number of test cases. Each of the next <b id=\"B_11\">T<\/b> lines contain 2 integers separated by single space: <b id=\"B_12\">x<\/b> and <b id=\"B_13\">y<\/b>.\n\t\t<\/p>\n\t\t<p id=\"P_14\">\n\t\t<\/p>\n\t\t<h3 id=\"H3_15\">\n\t\t\tOutput\n\t\t<\/h3>\n\t\t<p id=\"P_16\">\n\t\t\tFor each test case, output a single line containing the answer.\n\t\t<\/p>\n\t\t<p id=\"P_17\">\n\t\t<\/p>\n\t\t<h3 id=\"H3_18\">\n\t\t\tConstraints\n\t\t<\/h3>\n\t\t<ul id=\"UL_19\">\n\t\t\t<li id=\"LI_20\">\n\t\t\t\t<b id=\"B_21\">1<\/b> ≤ <b id=\"B_22\">T<\/b> ≤ <b id=\"B_23\">1000<\/b>\n\t\t\t<\/li>\n\t\t\t<li id=\"LI_24\">\n\t\t\t\t<b id=\"B_25\">1<\/b> ≤ <b id=\"B_26\">x<\/b> ≤ <b id=\"B_27\">1000<\/b>\n\t\t\t<\/li>\n\t\t\t<li id=\"LI_28\">\n\t\t\t\t<b id=\"B_29\">1<\/b> ≤ <b id=\"B_30\">y<\/b> ≤ <b id=\"B_31\">1000<\/b>\n\t\t\t<\/li>\n\t\t<\/ul>\n\t\t<p id=\"P_32\">\n\t\t<\/p>\n\t\t<h3 id=\"H3_33\">\n\t\t\tExample\n\t\t<\/h3>\n\t\t<pre id=\"PRE_34\"><b class=\" mathjax-support\" id=\"B_35\">Input:<\/b>\n2\n1 3\n4 3\n\n<b class=\" mathjax-support\" id=\"B_36\">Output:<\/b>\n1\n4\n\t\t<\/pre>\n\t\t<h3 id=\"H3_37\">\n\t\t\t\tExplanation\n\t\t\t<\/h3>\n\t\t<p id=\"P_38\">\n\t\t\t\tIn example case 1: the farmer harvested a potato from the first field and 3 potatoes from the second field. The sum is 4. If he is able to harvest a potato from the third field, that will make the sum 5, which is prime. Hence the answer is 1(he needs one more potato to make the sum of harvested potatoes prime.)\n\t\t\t<\/p>\n\t\t<!'+'--.problem-statement--'+'>\n\n\t\t<!'+'--.problem-info--'+'>\n\n\t\t<div id=\"DIV_39\">\n\t\t\t\t<input type=\"hidden\" value=\"value\" id=\"INPUT_40\" \/>\n\t\t\t<\/div>\n\t<\/div>\n<\/section>",
@@ -71,18 +71,38 @@ let data = [
         noOfPrivateCases: 100,
         privateCases: fs.readFileSync('testcases/micro.txt', 'utf8').split(),
         privateCasesAnswer: ["12", "13", "5", "9", "8", "11", "7", "6", "5", "7", "5", "10", "6", "6", "12", "10", "8", "10", "14", "11", "10", "13", "11", "7", "4", "9", "7", "10", "8", "10", "10", "8", "8", "13", "6", "10", "9", "6", "6", "6", "7", "9", "8", "4", "9", "12", "9", "10", "14", "9", "8", "8", "3", "7", "9", "6", "7", "6", "7", "7", "6", "8", "12", "9", "15", "12", "12", "9", "4", "7", "10", "6", "8", "9", "3", "5", "12", "5", "5", "6", "10", "6", "6", "7", "8", "9", "7", "7", "7", "9", "8", "2", "9", "10", "10", "5", "5", "13", "15", "7"]
+    },
+    {
+        question: "<section id=\"SECTION_1\">\n\t<div id=\"DIV_2\">\n\t\t<h3 id=\"H3_3\">\n\t\t\tProblem description\n\t\t<\/h3>\n\t\t<p id=\"P_4\">\n\t\t\tIt is winter super sale and all the shops have various offers. Suraj selected <b id=\"B_5\">N<\/b> items to buy and he is standing in the billing queue. It was then he noticed the offer \"Buy two, get two\". That means for every two items you buy, they give you two items for free. However, items can be of varying price, they always charge for 2 most costly items and give other 2 as free. For example, if the items cost 1, 1, 2, 2, then you have to pay 4 and take all 4 items.\n\t\t<\/p>\n\t\t<p id=\"P_6\">\n\t\t\tSuraj is busy reordering his items to reduce the total price he has to pay. He can separate the items and get them on different bills if needed. Can you tell me what is the least price Suraj has to pay to buy all the <b id=\"B_7\">N<\/b> items?\n\t\t<\/p>\n\t\t<h3 id=\"H3_8\">\n\t\t\tInput\n\t\t<\/h3>\n\t\t<p id=\"P_9\">\n\t\t\tThe first line of the input contains an integer <b id=\"B_10\">T<\/b> denoting the number of test cases. The description of <b id=\"B_11\">T<\/b> test cases follows. First line of each test case has single integer <b id=\"B_12\">N<\/b>. Second line of each test case has <b id=\"B_13\">N<\/b> space separated integers, which are the costs of items Suraj want to buy.\n\t\t<\/p>\n\t\t<h3 id=\"H3_14\">\n\t\t\tOutput\n\t\t<\/h3>\n\t\t<p id=\"P_15\">\n\t\t\tFor each test case, output a single line containing the required answer.\n\t\t<\/p>\n\t\t<h3 id=\"H3_16\">\n\t\t\tConstraints\n\t\t<\/h3>\n\t\t<ul id=\"UL_17\">\n\t\t\t<li id=\"LI_18\">\n\t\t\t\t<b id=\"B_19\">1<\/b> ≤ <b id=\"B_20\">T<\/b> ≤ <b id=\"B_21\">1000<\/b>\n\t\t\t<\/li>\n\t\t\t<li id=\"LI_22\">\n\t\t\t\t<b id=\"B_23\">1<\/b> ≤ <b id=\"B_24\">N<\/b> ≤ <b id=\"B_25\">1000<\/b>\n\t\t\t<\/li>\n\t\t\t<li id=\"LI_26\">\n\t\t\t\t<b id=\"B_27\">1<\/b> ≤ <b id=\"B_28\">Cost of items<\/b> ≤ <b id=\"B_29\">1000<\/b>\n\t\t\t<\/li>\n\t\t<\/ul>\n\t\t<h3 id=\"H3_30\">\n\t\t\tExample\n\t\t<\/h3>\n\t\t<pre id=\"PRE_31\"><b class=\" mathjax-support\" id=\"B_32\">Input:<\/b>\n3\n4\n1 1 2 2\n2\n10 200\n7\n1 1 10 2 2 2 1\n\n<b class=\" mathjax-support\" id=\"B_33\">Output:<\/b>\n4\n210\n14\n\t\t<\/pre>\n\t\t<h3 id=\"H3_34\">\n\t\t\t\tExplanation\n\t\t\t<\/h3> <b id=\"B_35\">Example case 1<\/b>\n\t\t<p id=\"P_36\">\n\t\t\t\tSuraj pays for 2 costly items and gets other 2 for free.\n\t\t\t<\/p> <b id=\"B_37\">Example case 2<\/b>\n\t\t<p id=\"P_38\">\n\t\t\t\tSuraj has to pay for both the items, he wont get anything for free.\n\t\t\t<\/p> <b id=\"B_39\">Example case 3<\/b>\n\t\t<p id=\"P_40\">\n\t\t\t\tSuraj separates the items into 2 bills. In one bill he pays 12. And in another bill he pays 2.\n\t\t\t<\/p>\n\t\t<!'+'--.problem-statement--'+'>\n\n\t\t<!'+'--.problem-info--'+'>\n\n\t\t<div id=\"DIV_41\">\n\t\t\t\t<input type=\"hidden\" value=\"value\" id=\"INPUT_42\" \/>\n\t\t\t<\/div>\n\t<\/div>\n<\/section>",
+        title: "Suraj goes shopping",
+        noOfTestCases: 3,
+        testCases: ["3\n4\n1 1 2 2\n2\n10 200\n7\n1 1 10 2 2 2 1"],
+        testCasesAnswer: ["4","210","14"],
+        noOfPrivateCases: 7,
+        privateCases: ["7\n7\n3 4 5 8 2 2 2\n15\n15 499 80 199 247 660 444 222 111 101 909 808 707 767 554\n2\n555 775\n5\n243 548 132 151 777\n4\n999 888 444 414\n6\n22 22 22 22 33 22\n20\n20 99 283 485 767 12 45 67 89 999 888 1 1 1 1 15 15 6 89 65"],
+        privateCasesAnswer: ["17", "3581", "1330", "1457", "1887", "99", "2433"]
+    },
+    {
+        question:"<div id=\"DIV_1\">\n\t<p id=\"P_2\">\n\t<\/p>\n\t<p id=\"P_3\">\n\t\tTrans bought a calculator at creatnx\'s store. Unfortunately, it is fake. It has many bugs. One of them is adding two numbers without carrying. Example expression: 12 + 9 will have result 11 in his calculator. Given an expression in the form <b id=\"B_4\">a + b<\/b>, please output result from that calculator.\n\t<\/p>\n\t<p id=\"P_5\">\n\t<\/p>\n\t<h3 id=\"H3_6\">\n\t\tInput\n\t<\/h3>\n\t<p id=\"P_7\">\n\t\tThe first line contains an integer <b id=\"B_8\">T<\/b> denote the number of test cases. Each test case contains two integers <b id=\"B_9\">a, b<\/b> in a single line.\n\t<\/p>\n\t<p id=\"P_10\">\n\t<\/p>\n\t<h3 id=\"H3_11\">\n\t\tOutput\n\t<\/h3>\n\t<p id=\"P_12\">\n\t\tEach test case, print answer in a single line.\n\t<\/p>\n\t<p id=\"P_13\">\n\t<\/p>\n\t<h3 id=\"H3_14\">\n\t\tConstraints\n\t<\/h3>\n\t<ul id=\"UL_15\">\n\t\t<li id=\"LI_16\">\n\t\t\t<b id=\"B_17\">1 ≤ T ≤ 100<\/b>\n\t\t<\/li>\n\t\t<li id=\"LI_18\">\n\t\t\t<b id=\"B_19\">1 ≤ a, b ≤ 10<sup id=\"SUP_20\">9<\/sup><\/b>\n\t\t<\/li>\n\t<\/ul>\n\t<p id=\"P_21\">\n\t<\/p>\n\t<ul id=\"UL_22\">\n\t<\/ul>\n\t<p id=\"P_23\">\n\t<\/p>\n\t<h3 id=\"H3_24\">\n\t\tExample\n\t<\/h3>\n\t<pre id=\"PRE_25\"><b class=\" mathjax-support\" id=\"B_26\">Input:<\/b>\n2\n12 9\n25 25\n\n<b class=\" mathjax-support\" id=\"B_27\">Output:<\/b>\n11\n40\n\t<\/pre>\n\t<p id=\"P_28\">\n\t\t<\/p>\n\t<!'+'--.problem-statement--'+'>\n\n\t<!'+'--.problem-info--'+'>\n\n\t<div id=\"DIV_29\">\n\t\t\t<input type=\"hidden\" value=\"value\" id=\"INPUT_30\" \/>\n\t\t<\/div>\n<\/div>",
+        title: "Buggy Calculator",
+        noOfTestCases: 2,
+        testCases: ["2\n12 9\n25 25"],
+        testCasesAnswer: ["11","40"],
+        noOfPrivateCases: 7,
+        privateCases: ["7\n5494 464\n6898 8401\n4659 5767\n2208 2881\n3071 9582\n3777 9465\n1782 2483"],
+        //ADD ANSWRRS
     }
 ];
 
 function seedDB() {
-    Question.remove({}, (err) => {
+    Question.deleteMany({}, (err) => {
         if(err) {
             console.log(err);
         } else {
             console.log("Cleared the DB");
         }
     });
-    
+
     data.forEach((seed) => {
         Question.create(seed, (err,question) => {
             if(err) {
@@ -90,7 +110,7 @@ function seedDB() {
             } else {
                 console.log("Question added");
             }
-        }); 
+        });
     });
 }
 
