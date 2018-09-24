@@ -18,6 +18,7 @@ $("#output").hide();
 socket.on("start", (data) => {
     $("#waitingModal").hide();
     questionData = data.question[0];
+    console.log(questionData.privateCases);
     $("#question").html(questionData.question);
     console.log(data.totalTime);
     timeId = setInterval(() => {
@@ -159,7 +160,11 @@ $("#submit_btn").click(() => {
             ID 6 = Compilation Error
             ID 7-12 = Runtime Error */
         if(data.status.id == 3) {
-            $("#output").append("No output presented for private cases");
+            let output_string_newline = data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+            let output_string = output_string_newline.replace(/\s/gm,"&nbsp");
+            $("#output").html(`${output_string}`);
+            //------------------UNCOMMENT THE BELOW LINE AND COMMENT THE ABOVE LINES IN PRODUCTION VERSION----------------------
+            //$("#output").append("No output presented for private cases");
             let answers = data.stdout.split("\n");
             for(let i=0;i<questionData.noOfPrivateCases;i++) {
                 if(answers[i] == questionData.privateCasesAnswer[i]) {
