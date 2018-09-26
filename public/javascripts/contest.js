@@ -6,13 +6,11 @@ let timeId; //Variable to hold the value of the id returned by setInterval()
 let totalTimeId; //Variable to hold the value of the id returned by setTimeout() 
 let compilerLang = 4; 
 let questionData = {};
-let resultVisible = true;
 let maxRight = 0; //Tracks the number of correct answers
 
 $("#waitingModal").show();
 $("#gameOverModal").hide();
 $("#roomID").hide();
-$("#output").hide();
 
 //When we recieve the start event, hide the modal as well as catch the question data and start the timer.
 socket.on("start", (data) => {
@@ -201,21 +199,6 @@ $("#submit_btn").click(() => {
         console.log(data);
     });
 });
-
-$("#output_button").click(()=> {
-    $("#output").toggle();
-    $("#run_message").toggle();
-    if(resultVisible == true) {
-        resultVisible = false;
-        $("#output_button").text("View Result");
-        $(".result").text("Output");
-    } else if(resultVisible == false) {
-        resultVisible = true;
-        $("#output_button").text("View Output");
-        $(".result").text("Result");
-    }
-});
-
 //Code to disable rightclick
 $(document).bind("contextmenu",function(e){
    return false;

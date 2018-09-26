@@ -35,9 +35,6 @@
               <span class="nav-link timer">0m 0s</span>
             </li>
             <li class="nav-item">
-              <button id="output_button" type="button" class="btn btn-info">View Output</button>
-            </li>
-            <li class="nav-item">
               <button id="run_btn" class="btn btn-primary">Run</button>
               <button id="submit_btn" class="btn btn-success">Submit</button><br>
             </li>
@@ -45,11 +42,29 @@
         </div>
       </nav>
       <div id="editor"></div>
-      <p class="result">Result:</p>
-      <div class="scroll-result">
-        <p id="output"></p>
-        <p id="run_message"></p>
+      <div class="row">
+        <div class="col-6">
+          <p class="result">Result:</p>
+          <div class="scroll-result">
+            <p id="run_message"></p>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="output-text-paragraph">Output:</p>
+          <div class="scroll-result">
+            <p id="output"></p>
+          </div>
+        </div>
       </div>
+      
+      
+      
+      
+      <!--<p class="result">Result:</p>-->
+      <!--<div class="scroll-result">-->
+      <!--  <p id="output"></p>-->
+      <!--  <p id="run_message"></p>-->
+      <!--</div>-->
     </div>
     <div id="waitingModal" class="modal">
       <div class="content">
