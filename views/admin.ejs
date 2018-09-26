@@ -1,8 +1,19 @@
 <html>
   <head>
     <title>1vs1 Coding</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/admin.css">
   </head>
   <body>
+      <div class="modal" id="verifyModal">
+          <div class="content">
+              <form class="verifyForm">
+                  <input id="formusername" type="text" name="username" placeholder="Username">
+                  <input id="formpassword" type="password" name="password" placeholder="Password">
+                  <button type="button" name="submitButton" id="formSubmit">Submit</button>
+              </form>
+              <h5 id="warning"></h5>
+          </div>
+      </div>
     <select id="1_select">
       <% questions.forEach((question)=> { %>
         <option value=<%=question._id%> ><%= question.title%></option>
@@ -10,7 +21,7 @@
     </select>
     <input type="number" id="1_time" min="1" value="20" style="width:40px;">
     <button id="1">Start room 1</button><br>
-    
+
     <select id="2_select">
       <% questions.forEach((question)=> { %>
         <option value=<%=question._id%> ><%= question.title%></option>
@@ -18,7 +29,7 @@
     </select>
     <input type="number" id="2_time" min="1" value="20" style="width:40px;">
     <button id="2">Start room 2</button><br>
-    
+
     <select id="3_select">
       <% questions.forEach((question)=> { %>
         <option value=<%=question._id%> ><%= question.title%></option>
@@ -26,7 +37,7 @@
     </select>
     <input type="number" id="3_time" min="1" value="20" style="width:40px;">
     <button id="3">Start room 3</button><br>
-    
+
     <select id="4_select">
       <% questions.forEach((question)=> { %>
         <option value=<%=question._id%> ><%= question.title%></option>
@@ -34,7 +45,7 @@
     </select>
     <input type="number" id="4_time" min="1" value="20" style="width:40px;">
     <button id="4">Start room 4</button><br>
-    
+
     <select id="5_select">
       <% questions.forEach((question)=> { %>
         <option value=<%=question._id%> ><%= question.title%></option>
@@ -42,7 +53,7 @@
     </select>
     <input type="number" id="5_time" min="1" value="20" style="width:40px;">
     <button id="5">Start room 5</button><br>
-    
+
     <select id="6_select">
       <% questions.forEach((question)=> { %>
         <option value=<%=question._id%> ><%= question.title%></option>
@@ -50,7 +61,7 @@
     </select>
     <input type="number" id="6_time" min="1" value="20" style="width:40px;">
     <button id="6">Start room 6</button><br>
-    
+
     <select id="7_select">
       <% questions.forEach((question)=> { %>
         <option value=<%=question._id%> ><%= question.title%></option>
@@ -58,7 +69,7 @@
     </select>
     <input type="number" id="7_time" min="1" value="20" style="width:40px;">
     <button id="7">Start room 7</button><br>
-    
+
     <select id="8_select">
       <% questions.forEach((question)=> { %>
         <option value=<%=question._id%> ><%= question.title%></option>
@@ -66,8 +77,11 @@
     </select>
     <input type="number" id="8_time" min="1" value="20" style="width:40px;">
     <button id="8">Start room 8</button><br>
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/admin.js"></script>
   </body>

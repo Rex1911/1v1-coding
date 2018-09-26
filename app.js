@@ -7,6 +7,7 @@ var seedDB = require("./seed");
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var {c, cpp, python, java} = require('compile-run');
+var keys = require('./public/javascripts/keys.js');
 
 //========================
 // MongoDB setup
@@ -37,8 +38,16 @@ app.get("/contest/:id", (req,res) => {
     res.render("contest", {id:req.params.id});
 });
 
+app.post("/check", (req,res) => {
+    if(req.body.username==keys.verify.username && req.body.password==keys.verify.password){
+        res.send("verified");
+    } else{
+        res.send("fail");
+    }
+});
+
 app.get("/admin",(req,res) =>{
-    res.send("<p><a href=\"\/admin\/1\">Day 1<\/a><\/p>\n<p><a href=\"\/admin\/2\">Day 2<\/a><\/p>\n<p><a href=\"\/admin\/3\">Day 3<\/a><\/p>") 
+    res.send("<p><a href=\"\/admin\/1\">Day 1<\/a><\/p>\n<p><a href=\"\/admin\/2\">Day 2<\/a><\/p>\n<p><a href=\"\/admin\/3\">Day 3<\/a><\/p>")
 });
 
 app.get("/admin/:day", (req,res) => {
@@ -56,7 +65,7 @@ app.get("/admin/:day", (req,res) => {
 // STARTING THE SERVER
 //=======================
 
-var server = app.listen(process.env.PORT, function(){
+var server = app.listen(3000, function(){
   console.log('listening on *:3000');
 });
 
