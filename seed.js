@@ -120,11 +120,13 @@ let data = [
 ];
 
 function seedDB() {
+    let questionsLoaded = 0;
     Question.deleteMany({}, (err) => {
         if(err) {
             console.log(err);
         } else {
             console.log("Cleared the DB");
+            questionsLoaded = 0;
         }
     });
 
@@ -133,7 +135,8 @@ function seedDB() {
             if(err) {
                 console.log(err);
             } else {
-                console.log("Question added");
+                questionsLoaded++;
+                console.log("Questions Loaded: " + questionsLoaded);
             }
         });
     });
