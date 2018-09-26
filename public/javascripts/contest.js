@@ -28,7 +28,7 @@ socket.on("start", (data) => {
     totalTimeId = setTimeout(()=>{
         $("#gameOverContent").html("Time's Up<br>Right Answers: " + maxRight);
         $("#gameOverModal").show();
-        clearInterval(timeId)
+        clearInterval(timeId);
     },data.totalTime*60000);
 });
 
