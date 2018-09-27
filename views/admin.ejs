@@ -1,15 +1,17 @@
 <html>
   <head>
     <title>1vs1 Coding</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap-css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/admin.css">
   </head>
   <body>
-      <div class="modal" id="verifyModal">
+      <div class="modal1" id="verifyModal">
           <div class="content">
               <form class="verifyForm">
-                  <input id="formusername" type="text" name="username" placeholder="Username">
-                  <input id="formpassword" type="password" name="password" placeholder="Password">
-                  <button type="button" name="submitButton" id="formSubmit">Submit</button>
+                  <h3>Login to continue</h3>
+                  <input class="form-control form-control-sm" id="formusername" type="text" name="username" placeholder="Username">
+                  <input class="form-control form-control-sm" id="formpassword" type="password" name="password" placeholder="Password">
+                  <button class="btn btn-primary" type="button" name="submitButton" id="formSubmit">Submit</button>
               </form>
               <h5 id="warning"></h5>
           </div>
