@@ -1,0 +1,16 @@
+.center-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
+
+h2 {
+    margin-bottom: 30px;
+}
+
+.btn-group {
+    margin-bottom: 200px;
+}
