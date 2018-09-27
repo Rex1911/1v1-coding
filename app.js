@@ -47,7 +47,7 @@ app.post("/check", (req,res) => {
 });
 
 app.get("/admin",(req,res) =>{
-    res.send("<p><a href=\"\/admin\/1\">Day 1<\/a><\/p>\n<p><a href=\"\/admin\/2\">Day 2<\/a><\/p>\n<p><a href=\"\/admin\/3\">Day 3<\/a><\/p>")
+    res.render("admin-index.ejs");
 });
 
 app.get("/admin/:day", (req,res) => {
