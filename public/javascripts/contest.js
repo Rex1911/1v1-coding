@@ -203,3 +203,8 @@ $("#submit_btn").click(() => {
 $(document).bind("contextmenu",function(e){
    return false;
  });
+
+ // Code to desable refresh
+ window.onbeforeunload = function() {
+    return "you can not refresh the page";
+}
