@@ -1,6 +1,6 @@
 module.exports = {
     verify: {
-        username: 'anirudh',
-        password: 'notanirudh'
+        username: 'test',
+        password: '12345'
     }
 }
