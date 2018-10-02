@@ -54,8 +54,10 @@ function changeAceLang() {
         compilerLang = 16;
     } else if ($("#langSelector option:selected").text() == "Java") {
         compilerLang = 26;
-    } else if ($("#langSelector option:selected").text() == "Python") {
+    } else if ($("#langSelector option:selected").text() == "Python3") {
         compilerLang = 34;
+    } else if ($("#langSelector option:selected").text() == "Python2") {
+        compilerLang = 36;
     }
 }
 
