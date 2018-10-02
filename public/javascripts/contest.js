@@ -4,6 +4,7 @@ const roomID = $("#roomID").text();
 let time = 0;
 let timeId; //Variable to hold the value of the id returned by setInterval()
 let totalTimeId; //Variable to hold the value of the id returned by setTimeout() 
+let timeOn = false;
 let compilerLang = 4; 
 let questionData = {};
 let maxRight = 0; //Tracks the number of correct answers
@@ -19,12 +20,15 @@ socket.on("start", (data) => {
     console.log(questionData.privateCases);
     $("#question").html(questionData.question);
     console.log(data.totalTime);
-    timeId = setInterval(() => {
-        time++;
-        let min = Math.floor(time/60);
-        let sec = time%60;
-        $(".timer").text(`${min}m ${sec}s`);
-    },1000);
+    if(timeOn==false) {
+        timeId = setInterval(() => {
+            time++;
+            let min = Math.floor(time/60);
+            let sec = time%60;
+            $(".timer").text(`${min}m ${sec}s`);
+        },1000);
+        timeOn=true;
+    }
     totalTimeId = setTimeout(()=>{
         $("#gameOverContent").html("Time's Up<br>Right Answers: " + maxRight);
         $("#gameOverModal").show();
@@ -208,8 +212,3 @@ $("#submit_btn").click(() => {
 $(document).bind("contextmenu",function(e){
    return false;
  });
-
- // Code to desable refresh
- window.onbeforeunload = function() {
-    return "you can not refresh the page";
-}
