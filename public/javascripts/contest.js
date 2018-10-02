@@ -111,8 +111,13 @@ $("#run_btn").click(() => {
             $("#run_message").html(`${error_string}`);
         } else if (data.status.id >=7 && data.status.id <=12) {
             $("#run_message").html("");
-            let error_string_newline = data.stderr.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
-            let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
+            let error_string;
+            if(data.stderr != null) {
+                let error_string_newline = data.stderr.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+                error_string = error_string_newline.replace(/\s/gm,"&nbsp");
+            } else {
+                error_string = "Runtime error. Check for errors in code"
+            }
             $("#run_message").html(`${error_string}`);
         }
         console.log(data);
