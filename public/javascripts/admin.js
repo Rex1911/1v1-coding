@@ -9,6 +9,13 @@ for(let i=1;i<=8;i++) {
     });
 }
 
+$("#custom_btn").click(()=> {
+    let questionID = $("#custom_select").val();
+    let totalTime = $("#custom_time").val();
+    let roomID = $("#room_id").val();
+    socket.emit("startContest", {questionID:questionID,totalTime:totalTime,roomID:roomID});
+});
+
 $("#formSubmit").click(function(){
     let password = $("#formpassword").val();
     let username = $("#formusername").val();
