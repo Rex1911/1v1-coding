@@ -3,9 +3,9 @@ const roomID = $("#roomID").text();
 
 let time = 0;
 let timeId; //Variable to hold the value of the id returned by setInterval()
-let totalTimeId; //Variable to hold the value of the id returned by setTimeout() 
+let totalTimeId; //Variable to hold the value of the id returned by setTimeout()
 let timeOn = false;
-let compilerLang = 4; 
+let compilerLang = 4;
 let questionData = {};
 let maxRight = 0; //Tracks the number of correct answers
 
@@ -75,17 +75,18 @@ $("#run_btn").click(() => {
             $("#run_btn").text(timer);
         }
     },1000);
-    
+
     $("#run_message").html("");
+    $("#run_message").html("Compiling...");
     $("#output").html("");
     let source = editor.getValue();
-    
+
     let data = {
         source_code: source,
         language_id: compilerLang,
         stdin: questionData.testCases[0]
     };
-    
+
     $.ajax({
         type: "POST",
         url: runUrl,
@@ -94,12 +95,14 @@ $("#run_btn").click(() => {
         data: JSON.stringify(data)
     })
     .done((data, textStatus, jqXHR) => {
-        
+
         /* ID 3 = Successful Compilation
             ID 6 = Compilation Error
+            ID 5 = Time Limit Exceed
             ID 7-12 = Runtime Error */
         if(data.status.id == 3) {
-            let output_string_newline = data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+            $("#run_message").html("");
+            let output_string_newline = data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");
             let output_string = output_string_newline.replace(/\s/gm,"&nbsp");
             $("#output").html(`${output_string}`);
             let answers = data.stdout.split("\n");
@@ -112,14 +115,18 @@ $("#run_btn").click(() => {
             }
         } else if(data.status.id == 6) {
             $("#run_message").html("");
-            let error_string_newline = data.compile_output.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+            let error_string_newline = data.compile_output.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");
             let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
+            $("#run_message").html(`${error_string}`);
+        } else if(data.status.id == 5) {
+            $("#run_message").html("");
+            let error_string = "Time limit exceeded";
             $("#run_message").html(`${error_string}`);
         } else if (data.status.id >=7 && data.status.id <=12) {
             $("#run_message").html("");
             let error_string;
             if(data.stderr != null) {
-                let error_string_newline = data.stderr.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+                let error_string_newline = data.stderr.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");
                 error_string = error_string_newline.replace(/\s/gm,"&nbsp");
             } else {
                 error_string = "Runtime error. Check for errors in code"
@@ -144,18 +151,19 @@ $("#submit_btn").click(() => {
             $("#submit_btn").text(timer);
         }
     },1000);
-    
+
     let noRightAnswers = 0;
     $("#run_message").html("");
+    $("#run_message").html("Compiling...");
     $("#output").html("");
     let source = editor.getValue();
-    
+
     let data = {
         source_code: source,
         language_id: compilerLang,
         stdin: questionData.privateCases[0]
     };
-    
+
     $.ajax({
         type: "POST",
         url: runUrl,
@@ -164,16 +172,17 @@ $("#submit_btn").click(() => {
         data: JSON.stringify(data)
     })
     .done((data, textStatus, jqXHR) => {
-        
+
         /* ID 3 = Successful Compilation
             ID 6 = Compilation Error
             ID 7-12 = Runtime Error */
         if(data.status.id == 3) {
-            let output_string_newline = data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
-            let output_string = output_string_newline.replace(/\s/gm,"&nbsp");
-            $("#output").html(`${output_string}`);
+            $("#run_message").html("");
+            // let output_string_newline = data.stdout.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");
+            // let output_string = output_string_newline.replace(/\s/gm,"&nbsp");
+            // $("#output").html(`${output_string}`);
             //------------------UNCOMMENT THE BELOW LINE AND COMMENT THE ABOVE LINES IN PRODUCTION VERSION----------------------
-            //$("#output").append("No output presented for private cases");
+            $("#output").append("No output presented for private cases");
             let answers = data.stdout.split("\n");
             for(let i=0;i<questionData.noOfPrivateCases;i++) {
                 if(answers[i] == questionData.privateCasesAnswer[i]) {
@@ -198,14 +207,18 @@ $("#submit_btn").click(() => {
             }
         } else if(data.status.id == 6) {
             $("#run_message").html("");
-            let error_string_newline = data.compile_output.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+            let error_string_newline = data.compile_output.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");
             let error_string = error_string_newline.replace(/\s/gm,"&nbsp");
+            $("#run_message").html(`${error_string}`);
+        } else if(data.status.id == 5) {
+            $("#run_message").html("");
+            let error_string = "Time limit exceeded";
             $("#run_message").html(`${error_string}`);
         } else if (data.status.id >=7 && data.status.id <=12) {
             $("#run_message").html("");
             let error_string;
             if(data.stderr != null) {
-                let error_string_newline = data.stderr.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");                                    
+                let error_string_newline = data.stderr.replace(/(\r\n\t|\n|\r\t)/gm,"<br>");
                 error_string = error_string_newline.replace(/\s/gm,"&nbsp");
             } else {
                 error_string = "Runtime error. Check for errors in code"

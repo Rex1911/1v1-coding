@@ -61,6 +61,10 @@ app.get("/admin/:day", (req,res) => {
     });
 });
 
+app.get("/download", (req,res) => {
+    res.download("math.txt");
+});
+
 //=======================
 // STARTING THE SERVER
 //=======================

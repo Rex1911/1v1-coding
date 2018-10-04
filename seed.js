@@ -2,7 +2,7 @@ const fs = require('fs');
 const Question = require("./models/questionsModel");
 
 let data = [
-    
+
     {
         day: 1,
         question:"<p><span style=\"font-weight: 400;\">Write a program to check if a number is a power of 2.<\/span><\/p>\n<p><strong>Input:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">The first line contains an integer T which denotes the numbers of test cases.<\/span><\/p>\n<p><span style=\"font-weight: 400;\">The next line contains an input integer <\/span><strong>a<\/strong><span style=\"font-weight: 400;\">.<\/span><\/p>\n<p><strong>Output:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">For each case, print YES if number is power of 2 else print NO<\/span><\/p>\n<p><strong>Constrains:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">1&lt;=T&lt;=20<\/span><\/p>\n<p><span style=\"font-weight: 400;\">1&lt;=a&lt;=10^4<\/span><\/p>\n<p><strong>Example:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">Input:<\/span><\/p>\n<p><span style=\"font-weight: 400;\">2<\/span><\/p>\n<p><span style=\"font-weight: 400;\">64<\/span><\/p>\n<p><span style=\"font-weight: 400;\">22<\/span><\/p>\n<p><span style=\"font-weight: 400;\">Output:<\/span><\/p>\n<p><span style=\"font-weight: 400;\">YES<\/span><\/p>\n<p><span style=\"font-weight: 400;\">NO<\/span><\/p>",
@@ -196,7 +196,7 @@ let data = [
         title: "Special Number",
         noOfTestCases: 2,
         testCases: ["2\n145\n143"],
-        testCasesAnswer: ["145","143"],
+        testCasesAnswer: ["YES","NO"],
         noOfPrivateCases: 7,
         privateCases: ["7\n1\n123\n2\n345\n100\n40585\n4321"],
         privateCasesAnswer: ["YES","NO","YES","NO","NO","YES","NO"]
@@ -218,10 +218,10 @@ let data = [
         title: "Acsending Array",
         noOfTestCases: 2,
         testCases: ["2\n5\n10 8 45 34 99\n4\n4 3 2 1"],
-        testCasesAnswer: ["8 10 34 45 99","1 2 3 4"],
+        testCasesAnswer: ["8 10 34 45 99 ","1 2 3 4 "],
         noOfPrivateCases: 7,
         privateCases: ["7\n5\n1 100 5 7 9\n10\n90 100 157 890 2 124 55 88 11 1\n3\n240 560 99\n7\n1 190 990 980 760 551 123\n2\n120 9\n3\n111 124 550\n4\n123 145 9 1"],
-        privateCasesAnswer: ["1 5 7 9 100", "1 2 11 55 88 90 100 124 157 890", "99 240 560", "1 123 190 551 760 980 990", "9 120", "111 123 550", "1 9 123 145"]
+        privateCasesAnswer: ["1 5 7 9 100 ", "1 2 11 55 88 90 100 124 157 890 ", "99 240 560 ", "1 123 190 551 760 980 990 ", "9 120 ", "111 124 550 ", "1 9 123 145 "]
     },
     {
         day: 1,
@@ -248,7 +248,7 @@ let data = [
     {
         day: 1,
         question: "<p><span style=\"font-weight: 400;\">Write a program to delete all occurrences of a given number from a given set of numbers<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Input:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">The first line contains an integer T which denotes the numbers of test cases.<\/span><\/p>\n<p><span style=\"font-weight: 400;\">The next line contains two space separated integer. The first of which denotes the number of elements in the set of numbers and the second denotes the number to be deleted<\/span><\/p>\n<p><span style=\"font-weight: 400;\">The next line contains the set of numbers which are space separated &nbsp;<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Output:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">For each case, print the set of numbers without the repeated elements<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Constrains:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">1&lt;=T&lt;=20<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Example:<\/strong><\/p>\n<p><strong>Input:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">2<\/span><\/p>\n<p><span style=\"font-weight: 400;\">5 4<\/span><\/p>\n<p><span style=\"font-weight: 400;\">2 4 4 6 4<\/span><\/p>\n<p><span style=\"font-weight: 400;\">5 2<\/span><\/p>\n<p><span style=\"font-weight: 400;\">1 2 2 2 5<\/span><\/p>\n<p><strong>Output:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">2 6<\/span><\/p>\n<p><span style=\"font-weight: 400;\">1 5<\/span><\/p>",
-        title: "Remove Dplicate",
+        title: "Remove Duplicate",
         noOfTestCases: 2,
         testCases: ["2\n5 4\n2 4 4 6 4\n5 2\n1 2 2 2 5"],
         testCasesAnswer: ["2 6","1 5"],
@@ -291,17 +291,6 @@ let data = [
     },
     {
         day: 1,
-        question: "<p><span style=\"font-weight: 400;\">Write a program to check whether an entered character a digit or alphabet<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Input:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">The first line contains an integer T which denotes the numbers of test cases.<\/span><\/p>\n<p><span style=\"font-weight: 400;\">The next T lines contain the input character<\/span><\/p>\n<p><strong>Output:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">For each case, print NUM if it is a number else print CHAR if it is a character<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Constrains:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">1&lt;=T&lt;=20<\/span><\/p>\n<p><strong>Example:<\/strong><\/p>\n<p><strong>Input:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">3<\/span><\/p>\n<p><span style=\"font-weight: 400;\">2<\/span><\/p>\n<p><span style=\"font-weight: 400;\">A<\/span><\/p>\n<p><span style=\"font-weight: 400;\">b<\/span><\/p>\n<p><strong>Output:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">NUM<\/span><\/p>\n<p><span style=\"font-weight: 400;\">CHAR<\/span><\/p>\n<p><span style=\"font-weight: 400;\">CHAR<\/span><\/p>",
-        title: "Digit or Alpha",
-        noOfTestCases: 3,
-        testCases: ["3\n2\nA\nb"],
-        testCasesAnswer: ["NUM","CHAR","NUM"],
-        noOfPrivateCases: 7,
-        privateCases: ["7\nz\n3\n5\n8\nZ\na\nB"],
-        privateCasesAnswer: ["CHAR","NUM","NUM","NUM","CHAR","CHAR","CHAR"]
-    },
-    {
-        day: 1,
         question: "<p><span style=\"font-weight: 400;\">Write a program to find the maximum of three numbers.<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Input:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">The first line contains an integer T which denotes the numbers of test cases.<\/span><\/p>\n<p><span style=\"font-weight: 400;\">The next T lines contain three space-separated integers.<\/span><\/p>\n<p><strong>Output:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">For each case, print a single line of integer which is maximum.<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Constrains:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">1&lt;=T&lt;=20<\/span><\/p>\n<p><span style=\"font-weight: 400;\">1&lt;=input&lt;=10000<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Example:<\/strong><\/p>\n<p><strong>Input:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">2<\/span><\/p>\n<p><span style=\"font-weight: 400;\">2 3 4<\/span><\/p>\n<p><span style=\"font-weight: 400;\">7 56 2<\/span><\/p>\n<p><strong>Output:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">4<\/span><\/p>\n<p><span style=\"font-weight: 400;\">56<\/span><\/p>",
         title: "Max of 3",
         noOfTestCases: 2,
@@ -310,17 +299,6 @@ let data = [
         noOfPrivateCases: 7,
         privateCases: ["7\n88 102 1990\n111 999 444\n247 0 123\n1 3 5\n7 0 2\n5473 9992 9991\n9091 93 0"],
         privateCasesAnswer: ["1990","999","247","5","7","9992","9091"]
-    },
-    {
-        day: 1,
-        question: "<p><span style=\"font-weight: 400;\">Write a program to concatenate two strings.<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Input:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">The first line contains a string T which denotes the number of test cases.<\/span><\/p>\n<p><span style=\"font-weight: 400;\">For each test case, the next two lines contain the two strings.<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Output:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">For each case, print a single line of string which is the&nbsp;concatenated string.<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Constrains:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">1&lt;=T&lt;=20<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Example:<\/strong><\/p>\n<p><strong>Input:<\/strong><\/p>\n<p>2<\/p>\n<p><span style=\"font-weight: 400;\">New<\/span><\/p>\n<p><span style=\"font-weight: 400;\">York<\/span><\/p>\n<p><span style=\"font-weight: 400;\">Hello<\/span><\/p>\n<p><span style=\"font-weight: 400;\">World<\/span><\/p>\n<p><strong>Output:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">NewYork<\/span><\/p>\n<p><span style=\"font-weight: 400;\">HelloWorld<\/span><\/p>",
-        title: "String Concatenate",
-        noOfTestCases: 2,
-        testCases: ["2\nNew\nYork\nHello\nWorld"],
-        testCasesAnswer: ["NewYork", "HelloWorld"],
-        noOfPrivateCases: 7,
-        privateCases: ["7\nMy\nName\nconcatenate\nstrings\nyouwere\nsuccessful\nwell\ndone\nonlytwo\nmoretogo\nThis\nTest\nOMG\nALLSUCCESSFUL"],
-        privateCasesAnswer: ["MyName","concatenatestrings","youweresuccessful","welldone","onlytwomoretogo","ThisTest","OMGALLSUCCESSFUL"]
     },
     {
         day: 1,
@@ -343,6 +321,17 @@ let data = [
         noOfPrivateCases: 7,
         privateCases: ["7\n121\n10404\n11\n1\n7396\n12\n4"],
         privateCasesAnswer: ["YES","YES","NO","YES","YES","NO","YES"]
+    },
+    {
+        day: 2,
+        question: "<p><span style=\"font-weight: 400;\">Pooja would like to withdraw&nbsp;X&nbsp;$US from an ATM. The cash machine will only accept the transaction if&nbsp;X&nbsp;is a multiple of 5, and Pooja\'s account balance has enough cash to perform the withdrawal transaction (including bank charges). For each successful withdrawal the bank charges 1 $US. Calculate Pooja\'s account balance after an attempted transaction.<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Input<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">The first line of input contains an integer T which indicates the number of test cases<\/span><\/p>\n<p><span style=\"font-weight: 400;\">Positive integer 0 &lt;&nbsp;X&nbsp;&lt;= 2000 - the amount of cash which Pooja wishes to withdraw.<\/span><\/p>\n<p><span style=\"font-weight: 400;\">Nonnegative number 0&lt;=&nbsp;Y&nbsp;&lt;= 2000 - Pooja\'s initial account balance.<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Output<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">Output the account balance after the attempted transaction. If there is not enough money in the account to complete the transaction, output the current bank balance.<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Example:<\/strong><\/p>\n<p><strong>Input:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">3<\/span><\/p>\n<p><span style=\"font-weight: 400;\">30 120<\/span><\/p>\n<p><span style=\"font-weight: 400;\">42 150<\/span><\/p>\n<p><span style=\"font-weight: 400;\">300 100<\/span><\/p>\n<p>&nbsp;<\/p>\n<p><strong>Output:<\/strong><\/p>\n<p><span style=\"font-weight: 400;\">89<\/span><\/p>\n<p><span style=\"font-weight: 400;\">150<\/span><\/p>\n<p><span style=\"font-weight: 400;\">100<\/span><\/p>",
+        title: "ATM",
+        noOfTestCases: 3,
+        testCases: ["3\n30 120\n42 150\n300 100"],
+        testCasesAnswer: ["89", "150", "100"],
+        noOfPrivateCases: 7,
+        privateCases: ["7\n40 80\n39 80\n125 100\n250 800\n111 110\n100 190\n119 190"],
+        privateCasesAnswer: ["39","80","100","549","110","89","190"]
     }
 ];
 
